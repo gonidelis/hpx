@@ -9,13 +9,13 @@
 #define HPX_SPLITTABLE_EXECUTOR_HPP
 
 #include <hpx/config.hpp>
+#include <hpx/async.hpp>
 #include <hpx/execution/traits/is_executor.hpp>
 #include <hpx/executors/detail/splittable_task.hpp>
 #include <hpx/modules/executors.hpp>
 #include <hpx/modules/iterator_support.hpp>
 #include <hpx/modules/serialization.hpp>
 #include <hpx/modules/timing.hpp>
-
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -58,7 +58,8 @@ namespace hpx { namespace parallel { namespace execution {
         {
             if (split_type != splittable_mode::all &&
                 split_type != splittable_mode::idle &&
-                split_type != splittable_mode::idle_mask)
+                split_type != splittable_mode::idle_mask &&
+                split_type != splittable_mode::all_multiple_tasks)
             {
                 HPX_THROW_EXCEPTION(hpx::bad_parameter,
                     "splittable_executor::splittable_executor",
@@ -116,8 +117,8 @@ namespace hpx { namespace parallel { namespace execution {
 #if HPX_VERSION_FULL < 0x010500
     // workaround for older HPX versions
     template <typename Param, typename Executor, typename F>
-    std::size_t get_chunk_size(Param&& param, Executor&& exec,
-        F&& f, std::size_t core, std::size_t count)
+    std::size_t get_chunk_size(Param&& param, Executor&& exec, F&& f,
+        std::size_t core, std::size_t count)
     {
         return count;
     }
