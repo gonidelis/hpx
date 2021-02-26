@@ -23,8 +23,6 @@ lib_name_upper = lib_name.upper()
 module_name = sys.argv[2]
 header_str = '=' * len(module_name)
 
-# CMake minimum version
-cmake_version = '3.13'
 
 cmake_root_header = f'''# Copyright (c) 2019-2021 The STE||AR-Group
 #
@@ -79,8 +77,6 @@ details.
 '''
 
 root_cmakelists_template = cmake_root_header + f'''
-cmake_minimum_required(VERSION {cmake_version} FATAL_ERROR)
-
 list(APPEND CMAKE_MODULE_PATH "${{CMAKE_CURRENT_SOURCE_DIR}}/cmake")
 
 set({module_name}_headers)
@@ -94,7 +90,6 @@ set({module_name}_sources)
 include(HPX_AddModule)
 add_hpx_module(
   {lib_name} {module_name}
-  COMPATIBILITY_HEADERS OFF
   GLOBAL_HEADER_GEN ON
   SOURCES ${{{module_name}_sources}}
   HEADERS ${{{module_name}_headers}}
@@ -250,7 +245,7 @@ modules_cmakelists += ')\n# cmake-format: on\n'
 
 modules_cmakelists += f'''
 hpx_info("")
-hpx_info("Configuring libhpx_{lib_name} modules:")
+hpx_info("Configuring libhpx_{lib_name} modules")
 
 foreach(module ${{_hpx_{lib_name}_modules}})
   add_subdirectory(${{module}})

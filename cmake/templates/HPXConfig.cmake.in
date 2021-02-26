@@ -6,7 +6,7 @@
 # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 set(HPX_FIND_PACKAGE ON)
-cmake_policy(VERSION 3.13)
+cmake_policy(VERSION 3.17)
 
 # Forward HPX_* cache variables
 include("${CMAKE_CURRENT_LIST_DIR}/HPXCacheVariables.cmake")
@@ -83,7 +83,6 @@ if(NOT BOOST_ROOT AND NOT "$ENV{BOOST_ROOT}")
 endif()
 include(HPX_SetupBoost)
 include(HPX_SetupBoostFilesystem)
-include(HPX_SetupBoostProgramOptions)
 include(HPX_SetupBoostProgramOptions)
 
 # Asio
